@@ -29,8 +29,8 @@ public class Banco {
 	 */
 	Connection getConexao() throws ClassNotFoundException, SQLException {
 		Connection connexao = null;
-		Class.forName("com.mysql.jdbc.Driver");
-		DriverManager.getConnection("jdbc:mysql://localhost/facet", "fabio.silveira", "Welcome1!");
+		Class.forName("com.mysql.cj.jdbc.Driver");
+		connexao = DriverManager.getConnection("jdbc:mysql://localhost/facet", "fabio.silveira", "Welcome1!");
 		return connexao;
 	}
 
@@ -71,6 +71,8 @@ public class Banco {
 		ResultSet rs = ps.executeQuery();
 		if (rs.next()) {
 			saldo = rs.getInt(1);
+		} else {
+			throw new RuntimeException("Cliente não encontrado");
 		}
 		conn.close();
 		return saldo;
